@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canterra attrition case study · Sion Hirai</title>
+  <meta name="description" content="A scroll-through case study: modeling employee attrition at Canterra with logistic regression and decision trees, and catching data leakage along the way.">
+  <meta property="og:title" content="Who leaves, and why · Canterra case study">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a0f1c'/><circle cx='16' cy='16' r='9' fill='none' stroke='%235b8cff' stroke-width='2'/><circle cx='16' cy='16' r='3' fill='%235b8cff'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <main class="case wide">
+    <div class="case-top">
+      <a class="back mono" href="index.html">← Sion Hirai</a>
+      <button class="pal-btn mono" type="button" data-palette><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search<kbd><span class="kbd-mod">⌘</span>K</kbd></button>
+    </div>
+
+    <div class="p-meta mono">Case study · Georgetown ML (OPAN 6602) · Team project · 2026</div>
+    <h1 style="view-transition-name: canterra-title">Who leaves, and why</h1>
+    <p class="lede">Canterra loses about one in six employees a year. Leadership asked three things: who is leaving, why, and who to talk to first. Scroll to walk through how we answered.</p>
+
+    <dl class="facts">
+      <div><dt>Data</dt><dd>4,410 employee records, 17 predictors</dd></div>
+      <div><dt>Models</dt><dd>Logistic regression vs. decision tree</dd></div>
+      <div><dt>Result</dt><dd>Test AUC 0.73 · 2.1× lift</dd></div>
+      <div><dt>Tools</dt><dd>Python · scikit-learn · statsmodels</dd></div>
+    </dl>
+
+    <div class="scrolly">
+      <div class="sticky">
+        <div class="stage" style="view-transition-name: canterra-chart" role="img" aria-live="polite" id="stage">
+          <div class="stage-title" id="stage-title"></div>
+          <div class="bars" id="stage-bars"></div>
+          <div class="dots" id="stage-dots" hidden></div>
+          <div class="xlabels" id="stage-x"></div>
+          <div class="legend" id="stage-legend" hidden></div>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step" data-step="0"><div class="step-card">
+          <div class="k mono">01 · WHO LEAVES</div>
+          <h3>Attrition is front-loaded</h3>
+          <p>Overall, 16% of employees left. But 46% of people in their first two years of work left, and so did 33% of those in their first year with a new manager.</p>
+          <p>Frequent travelers and single employees also left more often. These are one-at-a-time comparisons, so the models had to test which ones hold up together.</p>
+        </div></div>
+
+        <div class="step" data-step="1"><div class="step-card">
+          <div class="k mono">02 · THE TRAP</div>
+          <h3>The file repeats itself</h3>
+          <p>The 4,410 rows are really 1,470 profiles, each appearing three times with identical details and outcomes.</p>
+          <p>A normal random split scatters copies of the same profile across training and test. Here, 96% of test rows had a twin in training, so the model would be graded on people it had already seen.</p>
+        </div></div>
+
+        <div class="step" data-step="2"><div class="step-card">
+          <div class="k mono">03 · THE FIX</div>
+          <h3>Split by profile, not by row</h3>
+          <p>We kept every row but moved each profile's three copies together. 294 profiles went into a test set we touched once, at the very end.</p>
+          <p>Cross-validation used the same grouping, and every prep step (filling 73 blank cells, scaling) was redone inside each fold so nothing leaked.</p>
+        </div></div>
+
+        <div class="step" data-step="3"><div class="step-card">
+          <div class="k mono">04 · THE MODELS</div>
+          <h3>The simpler model ranked better</h3>
+          <p>The logistic regression beat a tuned decision tree in cross-validation (AUC 0.741 vs. 0.674) and on the untouched test set (0.727 vs. 0.666).</p>
+          <p>We still kept the tree as a companion: anyone can follow its if-then rules without statistics.</p>
+        </div></div>
+
+        <div class="step" data-step="4"><div class="step-card">
+          <div class="k mono">05 · DOES IT WORK?</div>
+          <h3>Ranking people by risk</h3>
+          <p>On the test set, the riskiest fifth of employees left at 41%, compared with 5% for the safest fifth.</p>
+          <p>Flagging the top 30% for a check-in reaches 62% of the people who leave. One in three flagged employees leaves, twice the base rate.</p>
+        </div></div>
+
+        <div class="step" data-step="5"><div class="step-card">
+          <div class="k mono">06 · WHAT TO DO</div>
+          <h3>Two levers managers control</h3>
+          <p>Experience and marital status can't be changed, but travel and satisfaction can. In the model, an employee with frequent travel and low satisfaction scores sits at 40% risk. Cutting travel and lifting both scores one point drops that to 14%, below the check-in cutoff.</p>
+          <p>Our recommendations: a first-two-years retention program, a check-in whenever someone gets a new manager, and less reliance on frequent travel. The risk score is for prioritizing conversations, never for pay or promotion decisions.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <section class="block">
+      <h2 class="label mono"><span>07</span> Limits we stated up front</h2>
+      <ul class="list">
+        <li>These are associations, not proven causes. The what-if numbers are what the model implies.</li>
+        <li>The test set has only 47 leaving profiles, so the accuracy figures are approximate.</li>
+        <li>Accuracy is moderate (test AUC 0.73). The model prioritizes; it does not predict individuals.</li>
+      </ul>
+    </section>
+
+    <footer class="foot mono">
+      <a href="valdris.html">← Valdris case study</a>
+      <a href="index.html">Back to home</a>
+    </footer>
+  </main>
+
+  <script type="module" src="js/site.js"></script>
+  <script type="module" src="js/canterra.js"></script>
+</body>
+</html>

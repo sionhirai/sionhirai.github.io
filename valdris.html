@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Valdris case study · Sion Hirai</title>
+  <meta name="description" content="How Sion Hirai designed, built, and shipped Valdris, a live defense procurement intelligence platform on USASpending.gov and SAM.gov data.">
+  <meta property="og:title" content="Valdris case study · Sion Hirai">
+  <meta property="og:image" content="assets/valdris.jpg">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a0f1c'/><circle cx='16' cy='16' r='9' fill='none' stroke='%235b8cff' stroke-width='2'/><circle cx='16' cy='16' r='3' fill='%235b8cff'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <main class="case">
+    <div class="case-top">
+      <a class="back mono" href="index.html">← Sion Hirai</a>
+      <button class="pal-btn mono" type="button" data-palette><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search<kbd><span class="kbd-mod">⌘</span>K</kbd></button>
+    </div>
+
+    <div class="p-meta mono">Case study · 2026</div>
+    <h1 style="view-transition-name: valdris-title">Valdris: defense procurement intelligence</h1>
+    <p class="lede">Every DoD contract action is public, but turning that data into an answer like "who is winning this kind of work, and is it growing?" takes hours of filtering. I built Valdris to answer those questions in seconds.</p>
+
+    <a class="case-hero shot" href="https://valdris-intel.vercel.app/" target="_blank" rel="noopener" style="view-transition-name: valdris-shot" aria-label="Open Valdris live">
+      <img src="assets/valdris.jpg" alt="Valdris overview page with a globe of Pentagon contract flows">
+      <span class="live mono"><span class="dot"></span>LIVE</span>
+    </a>
+
+    <dl class="facts">
+      <div><dt>Role</dt><dd>Solo founder and builder</dd></div>
+      <div><dt>Users</dt><dd>Defense researchers, small contractors, policy analysts</dd></div>
+      <div><dt>Stack</dt><dd>React · Node/Express · Supabase · Claude API</dd></div>
+      <div><dt>Live</dt><dd><a href="https://valdris-intel.vercel.app/" target="_blank" rel="noopener">valdris-intel.vercel.app ↗</a></dd></div>
+    </dl>
+
+    <section class="block">
+      <h2 class="label mono"><span>01</span> The data, live</h2>
+      <p>The chart below fetches DoD contract obligations from USASpending.gov when this page loads. Valdris is built on the same feed.</p>
+      <div class="fy-chart" id="fy-chart" role="img" aria-label="DoD contract obligations by fiscal year, live from USASpending.gov">
+        <div class="stage-title" id="fy-title">DoD contract obligations by fiscal year</div>
+        <div class="skeleton" id="fy-skel">Fetching from USASpending.gov…</div>
+        <div class="bars" id="fy-bars" hidden></div>
+        <div class="xlabels" id="fy-x"></div>
+      </div>
+      <p class="note">Source: USASpending.gov API, award types A to D (contracts). DoD data posts with a 90-day delay, so the current fiscal year is left out.</p>
+    </section>
+
+    <section class="block">
+      <h2 class="label mono"><span>02</span> What I built</h2>
+      <ul class="list">
+        <li><strong>Overview:</strong> where the money goes this fiscal year, with a globe that draws arcs from the Pentagon to the states receiving the largest awards.</li>
+        <li><strong>Contract flow and spending trends:</strong> which agencies and capability areas are growing, month over month.</li>
+        <li><strong>Competitor intel:</strong> who is winning, in which areas, and how their share is moving.</li>
+        <li><strong>Signal feed:</strong> same-day SAM.gov solicitations with a watchlist and deadline alerts.</li>
+        <li><strong>Plain-English briefs:</strong> the Claude API turns raw award data into short write-ups for readers who don't live in spreadsheets.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2 class="label mono"><span>03</span> How it fits together</h2>
+      <div class="arch" role="img" aria-label="Architecture: USASpending.gov and SAM.gov feed an Express API with a daily refresh job, which stores data in Supabase and serves the React app on Vercel; the Claude API writes briefs.">
+        <div class="stack">
+          <div class="node"><b>USASpending.gov</b><span>Every federal contract action</span></div>
+          <div class="node"><b>SAM.gov</b><span>Open solicitations</span></div>
+        </div>
+        <div class="pipe">→</div>
+        <div class="stack">
+          <div class="node hi"><b>Express API</b><span>Daily refresh job on Railway, rate limits, caching</span></div>
+          <div class="node"><b>Supabase</b><span>Postgres, auth, watchlists</span></div>
+        </div>
+        <div class="pipe">→</div>
+        <div class="stack">
+          <div class="node hi"><b>React app</b><span>Vercel, phone-first layout, ⌘K search</span></div>
+          <div class="node"><b>Claude API</b><span>Briefs, labeled as AI-generated</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="label mono"><span>04</span> Decisions that mattered</h2>
+      <p><strong>Live data only.</strong> Early builds leaned on sample numbers while I worked on the interface. Before launch I audited every figure on the site and removed all of them, so each number now traces back to a public source. For a tool whose audience checks numbers for a living, that was the only defensible choice.</p>
+      <p><strong>Label what the AI writes.</strong> The briefs are useful but can be wrong, so they carry a visible "AI-generated, verify figures" note. Illustrative views are labeled the same way.</p>
+      <p><strong>Built for the phone.</strong> Most people first see Valdris from a link on a phone, so the redesign added a bottom tab bar, URL routing, and tables that stay readable on a small screen.</p>
+    </section>
+
+    <footer class="foot mono">
+      <a href="canterra.html">Next: Canterra attrition →</a>
+      <a href="index.html">Back to home</a>
+    </footer>
+  </main>
+
+  <script type="module" src="js/site.js"></script>
+  <script type="module">
+    import { obligationsByFY, money, LAST_FY } from './js/live.js';
+    const first = LAST_FY - 6;
+    obligationsByFY(first, LAST_FY).then((rows) => {
+      const max = Math.max(...rows.map((r) => r.amount));
+      const bars = document.getElementById('fy-bars');
+      bars.innerHTML = rows.map((r, i) =>
+        `<div class="bar${i === rows.length - 1 ? ' hot' : ''}" style="--h:${(r.amount / max * 100).toFixed(1)}%"><i>${money(r.amount)}</i></div>`).join('');
+      document.getElementById('fy-x').innerHTML = rows.map((r) => `<span>FY${String(r.fy).slice(2)}</span>`).join('');
+      document.getElementById('fy-title').textContent = `DoD contract obligations, FY${String(first).slice(2)} to FY${String(LAST_FY).slice(2)} · live`;
+      document.getElementById('fy-skel').remove();
+      bars.hidden = false;
+      const chart = document.getElementById('fy-chart');
+      chart.classList.add('chart');
+      requestAnimationFrame(() => requestAnimationFrame(() => chart.classList.add('in')));
+    }).catch(() => {
+      document.getElementById('fy-skel').textContent = 'USASpending.gov is not responding right now. Try again in a minute.';
+    });
+  </script>
+</body>
+</html>

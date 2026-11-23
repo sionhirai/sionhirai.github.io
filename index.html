@@ -21,7 +21,8 @@
 
   <div class="wrap">
     <header class="side">
-      <div>
+      <div class="side-top">
+        <div class="globe-wrap" aria-hidden="true"><canvas id="globe"></canvas></div>
         <div class="id-row">
           <img class="avatar" src="assets/headshot.jpg" alt="Sion Hirai" width="72" height="72">
           <div class="radar" aria-hidden="true"><span></span></div>
@@ -31,6 +32,13 @@
         <p class="blurb">I turn messy government and business data into decisions people can act on, and I build the tools to do it.</p>
 
         <div class="status"><span class="dot"></span>Open to full-time roles · May 2027 · DC</div>
+
+        <div class="feed" id="feed" hidden>
+          <div class="feed-head mono"><span class="dot"></span>LIVE · USASpending.gov<span class="feed-src" id="feed-time"></span></div>
+          <div class="feed-row"><span id="fy-prev-label">Last fiscal year</span><b class="mono" id="fy-prev">…</b></div>
+          <div class="feed-row"><span>Top contractor</span><b class="mono" id="top-co">…</b></div>
+          <div class="feed-row"><span>Top recipient state</span><b class="mono" id="top-state">…</b></div>
+        </div>
 
         <nav class="nav" aria-label="Sections">
           <a href="#about" ><span class="n">01</span><span class="line"></span>About</a>
@@ -45,6 +53,7 @@
           <div><span class="k">LOC</span> Washington, DC</div>
           <div><span class="k">T</span> <span id="clock">--:--:--</span> ET</div>
         </div>
+        <button class="pal-btn mono" type="button" data-palette><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search everything<kbd><span class="kbd-mod">⌘</span>K</kbd></button>
         <ul class="socials">
           <li><a href="https://github.com/sionhirai" aria-label="GitHub" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg></a></li>
           <li><a href="https://www.linkedin.com/in/sionhirai" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg></a></li>
@@ -69,13 +78,13 @@
         <h2 class="label mono"><span>02</span> Projects</h2>
 
         <article class="project featured">
-          <a class="shot" href="https://valdris-intel.vercel.app/" target="_blank" rel="noopener" aria-label="Open Valdris live site">
+          <a class="shot" href="valdris.html" aria-label="Read the Valdris case study" style="view-transition-name: valdris-shot">
             <img src="assets/valdris.jpg" alt="Valdris overview page showing a globe of Pentagon contract flows" loading="lazy">
             <span class="live mono"><span class="dot"></span>LIVE</span>
           </a>
           <div class="p-body">
             <div class="p-meta mono">2026 · Solo founder and builder</div>
-            <h3><a href="https://valdris-intel.vercel.app/" target="_blank" rel="noopener">Valdris: defense procurement intelligence <span class="arrow">↗</span></a></h3>
+            <h3 style="view-transition-name: valdris-title"><a href="valdris.html">Valdris: defense procurement intelligence <span class="arrow">→</span></a></h3>
             <p>A full-stack platform that tracks more than $400B a year in DoD contract obligations. It shows which contractors are winning, in which capability areas, and where funding is moving. A daily pipeline refreshes the data, Claude writes plain-English briefs on awards and market shifts, and a watchlist flags SAM.gov solicitations before they close.</p>
             <div class="stats">
               <div><b>$400B+</b><span>DoD obligations tracked yearly</span></div>
@@ -83,11 +92,12 @@
               <div><b>0</b><span>mock numbers; everything is live</span></div>
             </div>
             <ul class="chips mono"><li>React</li><li>Node / Express</li><li>Supabase</li><li>Claude API</li><li>Vercel</li></ul>
+            <div class="p-links mono"><a href="valdris.html">Read the case study →</a><a href="https://valdris-intel.vercel.app/" target="_blank" rel="noopener">Open live site ↗</a></div>
           </div>
         </article>
 
         <article class="project">
-          <div class="chart" role="img" aria-label="Bar chart: actual attrition by predicted risk group on the test set. Group 1, 5 percent; group 2, 7; group 3, 12; group 4, 15; group 5, 41. Base rate 16 percent.">
+          <a class="chart-link" href="canterra.html" aria-label="Read the Canterra case study"><div class="chart" style="view-transition-name: canterra-chart" role="img" aria-label="Bar chart: actual attrition by predicted risk group on the test set. Group 1, 5 percent; group 2, 7; group 3, 12; group 4, 15; group 5, 41. Base rate 16 percent.">
             <div class="chart-title mono">Actual attrition by predicted-risk group · test set</div>
             <div class="bars">
               <div class="bar" style="--h:12%"><i>5%</i></div>
@@ -98,10 +108,10 @@
               <div class="base" style="--b:39%"><span class="mono">16% base rate</span></div>
             </div>
             <div class="axis mono"><span>Lowest risk</span><span>Highest risk</span></div>
-          </div>
+          </div></a>
           <div class="p-body">
             <div class="p-meta mono">2026 · Georgetown ML · Team project</div>
-            <h3>Who leaves, and why: employee attrition at Canterra</h3>
+            <h3 style="view-transition-name: canterra-title"><a href="canterra.html">Who leaves, and why: employee attrition at Canterra <span class="arrow">→</span></a></h3>
             <p>We modeled 4,410 employee records to find what drives attrition and who to check in with first. We caught that the file repeats each employee profile three times, so we split by profile to keep test data honest. A logistic regression beat a tuned decision tree, and the first two years of a career plus a new manager turned out to be the riskiest moments.</p>
             <div class="stats">
               <div><b>0.73</b><span>test AUC (logistic regression)</span></div>
@@ -109,6 +119,7 @@
               <div><b>2.1×</b><span>lift over the 16% base rate</span></div>
             </div>
             <ul class="chips mono"><li>Python</li><li>scikit-learn</li><li>statsmodels</li><li>Grouped CV</li></ul>
+            <div class="p-links mono"><a href="canterra.html">Read the scroll story →</a></div>
           </div>
         </article>
       </section>
@@ -171,6 +182,26 @@
     </main>
   </div>
 
-  <script src="main.js"></script>
+  <button class="pal-fab" type="button" data-palette aria-label="Open search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+
+  <script type="module" src="js/site.js"></script>
+  <script type="module">
+    import { obligationsByFY, topStates, topRecipient, mountGlobe, countUp, money, LAST_FY } from './js/live.js';
+    const statesP = topStates(LAST_FY);
+    mountGlobe(document.getElementById('globe'), statesP);
+
+    const feed = document.getElementById('feed');
+    Promise.all([obligationsByFY(LAST_FY, LAST_FY), statesP, topRecipient(LAST_FY)]).then(([years, states, co]) => {
+      const prev = years.find((y) => y.fy === LAST_FY);
+      if (!prev) return;
+      document.getElementById('fy-prev-label').textContent = `FY${String(LAST_FY).slice(2)} DoD contracts`;
+      feed.hidden = false;
+      document.getElementById('feed-time').textContent = 'pulled ' + new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: '2-digit' }) + ' ET';
+      countUp(document.getElementById('fy-prev'), prev.amount, money);
+      document.getElementById('top-co').textContent = `${co.name} · ${money(co.amount)}`;
+      const top = states[0];
+      document.getElementById('top-state').textContent = top ? `${top.st} · ${money(top.amount)}` : 'n/a';
+    }).catch(() => { feed.hidden = true; });
+  </script>
 </body>
 </html>
