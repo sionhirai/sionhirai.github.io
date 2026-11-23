@@ -57,8 +57,8 @@
         <li><strong>Overview:</strong> where the money goes this fiscal year, with a globe that draws arcs from the Pentagon to the states receiving the largest awards.</li>
         <li><strong>Contract flow and spending trends:</strong> which agencies and capability areas are growing, month over month.</li>
         <li><strong>Competitor intel:</strong> who is winning, in which areas, and how their share is moving.</li>
-        <li><strong>Signal feed:</strong> same-day SAM.gov solicitations with a watchlist and deadline alerts.</li>
-        <li><strong>Plain-English briefs:</strong> the Claude API turns raw award data into short write-ups for readers who don't live in spreadsheets.</li>
+        <li><strong>Signal feed:</strong> open SAM.gov solicitations, with a watchlist saved in your browser.</li>
+        <li><strong>Claude integration:</strong> turns recent award activity into a short plain-English summary for readers who don't live in spreadsheets. It's built and wired in, and switched off in production for now.</li>
       </ul>
     </section>
 
@@ -72,12 +72,12 @@
         <div class="pipe">→</div>
         <div class="stack">
           <div class="node hi"><b>Express API</b><span>Daily refresh job on Railway, rate limits, caching</span></div>
-          <div class="node"><b>Supabase</b><span>Postgres, auth, watchlists</span></div>
+          <div class="node"><b>Supabase</b><span>Postgres and auth</span></div>
         </div>
         <div class="pipe">→</div>
         <div class="stack">
           <div class="node hi"><b>React app</b><span>Vercel, phone-first layout, ⌘K search</span></div>
-          <div class="node"><b>Claude API</b><span>Briefs, labeled as AI-generated</span></div>
+          <div class="node"><b>Claude API</b><span>Summaries, labeled AI-generated</span></div>
         </div>
       </div>
     </section>
@@ -85,7 +85,7 @@
     <section class="block">
       <h2 class="label mono"><span>04</span> Decisions that mattered</h2>
       <p><strong>Live data only.</strong> Early builds leaned on sample numbers while I worked on the interface. Before launch I audited every figure on the site and removed all of them, so each number now traces back to a public source. For a tool whose audience checks numbers for a living, that was the only defensible choice.</p>
-      <p><strong>Label what the AI writes.</strong> The briefs are useful but can be wrong, so they carry a visible "AI-generated, verify figures" note. Illustrative views are labeled the same way.</p>
+      <p><strong>Label what the AI writes.</strong> AI summaries are useful but can be wrong, so the panel carries a visible "AI-generated" badge and tells readers to verify figures against the source records. Illustrative views are labeled the same way.</p>
       <p><strong>Built for the phone.</strong> Most people first see Valdris from a link on a phone, so the redesign added a bottom tab bar, URL routing, and tables that stay readable on a small screen.</p>
     </section>
 
