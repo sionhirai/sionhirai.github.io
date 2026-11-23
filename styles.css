@@ -369,3 +369,9 @@ a.inline:hover { color: var(--accent); }
 
 [hidden] { display: none !important; }
 .stage .base span, .fy-chart .base span { left: auto; right: 0; padding: 0 0 0 6px; }
+
+/* grouped skills */
+.skills { margin: 22px 0 0; display: grid; gap: 14px; }
+.skills dt { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+.skills dd { margin: 0; }
+.skills .chips { margin: 0; }

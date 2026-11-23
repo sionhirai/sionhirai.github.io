@@ -10,6 +10,8 @@ Analytics for defense and frontier tech. M.S. Business Analytics at Georgetown M
 - Leading the Defense Industrial Base research team at The Concord Group (Georgetown)
 - Palantir Foundry and AIP Builder Foundations · Snowflake Data Warehousing
 
-**Tools:** Python · SQL · R · scikit-learn · Foundry / AIP · Snowflake · React · Node.js · Postgres · Claude API
+**Machine learning:** regression and LASSO · logistic regression · decision trees · random forests · KNN · neural nets (CNNs, LSTMs) · ARIMA
+
+**Tools:** Python (scikit-learn, TensorFlow/Keras, statsmodels) · SQL · R · Foundry / AIP · Snowflake · React · Node.js · Postgres · Claude API
 
 [Portfolio](https://sionhirai.github.io) · [LinkedIn](https://www.linkedin.com/in/sionhirai) · [Email](mailto:skh93@georgetown.edu)
